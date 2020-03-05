@@ -25,9 +25,10 @@ class nnUNetTrainerCascadeFullRes(nnUNetTrainer):
         if self.output_folder is not None:
             task = self.output_folder.split("/")[-3]
             plans_identifier = self.output_folder.split("/")[-2].split("__")[-1]
-
+        
             folder_with_segs_prev_stage = join(network_training_output_dir, "3d_lowres",
                                                task, previous_trainer + "__" + plans_identifier, "pred_next_stage")
+            print(folder_with_segs_prev_stage)
             if not isdir(folder_with_segs_prev_stage):
                 raise RuntimeError(
                     "Cannot run final stage of cascade. Run corresponding 3d_lowres first and predict the "

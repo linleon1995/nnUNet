@@ -11,8 +11,10 @@
 #    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #    See the License for the specific language governing permissions and
 #    limitations under the License.
-
-from nnunet.experiment_planning.find_classes_in_slice import add_classes_in_slice_info
+import sys
+sys.path.append("/home/acm528_02/Jing_Siang/project/Tensorflow/nnU-net/nnUNet/")
+print(sys.path)
+from find_classes_in_slice import add_classes_in_slice_info
 from nnunet.preprocessing.cropping import ImageCropper
 from batchgenerators.utilities.file_and_folder_operations import *
 from nnunet.paths import splitted_4d_output_dir, cropped_output_dir, preprocessing_output_dir, raw_dataset_dir
@@ -168,9 +170,9 @@ def plan_and_preprocess(task_string, processes_lowres=8, processes_fullres=3, no
 if __name__ == "__main__":
     import argparse
     parser = argparse.ArgumentParser()
-    parser.add_argument('-t', '--task', type=str, help="task name. There must be a matching folder in "
-                                                       "raw_dataset_dir", required=True)
-    parser.add_argument('-pl', '--processes_lowres', type=int, default=8, help='number of processes used for '
+    parser.add_argument('-t', '--task', type=str, default="Task_Abodominal", help="task name. There must be a matching folder in "
+                                                       "raw_dataset_dir", required=False)
+    parser.add_argument('-pl', '--processes_lowres', type=int, default=1, help='number of processes used for '
                                                                                'preprocessing 3d_lowres data, image '
                                                                                'splitting and image cropping '
                                                                                'Default: 8. The distinction between '
@@ -178,7 +180,7 @@ if __name__ == "__main__":
                                                                                'is necessary because preprocessing '
                                                                                'at full resolution needs a lot of '
                                                                                'RAM', required=False)
-    parser.add_argument('-pf', '--processes_fullres', type=int, default=8, help='number of processes used for '
+    parser.add_argument('-pf', '--processes_fullres', type=int, default=1, help='number of processes used for '
                                                                                 'preprocessing 2d and 3d_fullres '
                                                                                 'data. Default: 3', required=False)
     parser.add_argument('-o', '--override', type=int, default=0, help="set this to 1 if you want to override "
